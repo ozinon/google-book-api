@@ -30,12 +30,21 @@
       "/node_modules/"
     ]
   },
+  "browserslist": [
+    "since 2017-06"
+  ],
   "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.2.0",
+    "formik": "^1.5.1",
     "react": "^16.8.3",
-    "react-dom": "^16.8.3"
+    "react-dom": "^16.8.3",
+    "yup": "^0.26.10"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.14.1",
     "eslint-config-airbnb": "^17.1.0",
