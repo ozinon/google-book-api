@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { getData } from '../helpers/helpers'
+import BookList from './BookList'
 
 const App = () => {
-  const [count, setCount] = useState(0)
-  return (
-    <div>
-      <h1>Clicked {count} times</h1>
-      <button type="button" onClick={() => setCount(count + 1)}>
-        Click
-      </button>
-    </div>
-  )
+  const [data, setData] = useState({ books: [] })
+
+  const fetchBooks = async query => {
+    try {
+      const result = await getData(query)
+      setData(result.items)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    fetchBooks('harry')
+  }, [])
+
+  return <div>{data.length > 0 ? <BookList books={data} /> : ''}</div>
 }
 
 export default App
