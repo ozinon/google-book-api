@@ -1,24 +1,15 @@
-import React, { useState } from 'react'
-import { getData } from '../helpers/helpers'
-import BookList from './BookList'
-import SearchForm from './SearchForm'
+import { Router } from '@reach/router'
+import React from 'react'
+import BookDetails from './BookDetails'
+import Home from './Home'
 
 const App = () => {
-  const [data, setData] = useState({ books: [] })
-
-  const fetchBooks = async query => {
-    try {
-      const result = await getData(query)
-      setData(result.items)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   return (
     <div>
-      <SearchForm onSearch={query => fetchBooks(query)} />
-      {data.length > 0 ? <BookList books={data} /> : ''}
+      <Router>
+        <Home path="/" />
+        <BookDetails path=":details" />
+      </Router>
     </div>
   )
 }
