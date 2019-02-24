@@ -17,7 +17,7 @@ const BookItem = props => {
   } = props
   return (
     <li>
-      <Link to={id}>
+      <Link to={`/book/${id}`}>
         <h3>{title}</h3>
         <p>{description ? truncate(description) : ''}</p>
         <p>{publisher}</p>
