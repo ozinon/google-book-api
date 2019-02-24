@@ -1,23 +1,25 @@
 import { Link } from '@reach/router'
 import React from 'react'
+import { truncate } from '../helpers/helpers'
 
-const BookItem = ({
-  book: {
-    volumeInfo: {
-      title,
-      description,
-      publisher,
-      authors,
-      imageLinks: { smallThumbnail, thumbnail },
+const BookItem = props => {
+  const {
+    book: {
+      volumeInfo: {
+        title,
+        description,
+        publisher,
+        authors,
+        imageLinks: { smallThumbnail, thumbnail },
+      },
+      id,
     },
-    id,
-  },
-}) => {
+  } = props
   return (
     <li>
       <Link to={id}>
         <h3>{title}</h3>
-        <p>{description}</p>
+        <p>{description ? truncate(description) : ''}</p>
         <p>{publisher}</p>
         <img src={smallThumbnail} alt="title" />
         {authors
