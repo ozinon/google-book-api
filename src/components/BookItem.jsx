@@ -6,6 +6,7 @@ const BookItem = ({
       title,
       description,
       publisher,
+      authors,
       imageLinks: { smallThumbnail, thumbnail },
     },
   },
@@ -16,6 +17,7 @@ const BookItem = ({
       <p>{description}</p>
       <p>{publisher}</p>
       <img src={smallThumbnail} alt="title" />
+      {authors ? authors.map(author => <p>{author}</p>) : ''}
     </li>
   )
 }
