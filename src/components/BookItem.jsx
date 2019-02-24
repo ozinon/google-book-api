@@ -1,3 +1,4 @@
+import { Link } from '@reach/router'
 import React from 'react'
 
 const BookItem = ({
@@ -9,15 +10,20 @@ const BookItem = ({
       authors,
       imageLinks: { smallThumbnail, thumbnail },
     },
+    id,
   },
 }) => {
   return (
     <li>
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <p>{publisher}</p>
-      <img src={smallThumbnail} alt="title" />
-      {authors ? authors.map(author => <p>{author}</p>) : ''}
+      <Link to={id}>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <p>{publisher}</p>
+        <img src={smallThumbnail} alt="title" />
+        {authors
+          ? authors.map((author, index) => <p key={index}>{author}</p>)
+          : ''}
+      </Link>
     </li>
   )
 }
