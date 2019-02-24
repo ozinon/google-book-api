@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { getData } from '../helpers/helpers'
 import BookList from './BookList'
+import SearchForm from './SearchForm'
 
 const App = () => {
   const [data, setData] = useState({ books: [] })
@@ -13,11 +14,13 @@ const App = () => {
       console.error(error)
     }
   }
-  useEffect(() => {
-    fetchBooks('harry')
-  }, [])
 
-  return <div>{data.length > 0 ? <BookList books={data} /> : ''}</div>
+  return (
+    <div>
+      <SearchForm onSearch={query => fetchBooks(query)} />
+      {data.length > 0 ? <BookList books={data} /> : ''}
+    </div>
+  )
 }
 
 export default App
