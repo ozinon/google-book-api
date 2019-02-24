@@ -1,8 +1,8 @@
+import { Link } from '@reach/router'
 import React, { useEffect, useState } from 'react'
 import { getBook } from '../helpers/helpers'
 
 const BookDetails = props => {
-  console.log(props)
   const [data, setData] = useState({ book: {} })
 
   const fetchBook = async id => {
@@ -39,6 +39,7 @@ const BookDetails = props => {
         <p>ISBN: {industryIdentifiers[1].identifier}</p>
         <img src={small} alt={title} />
         <img src={medium} alt={title} />
+        <Link to="/">Back to search</Link>
       </article>
     )
   } else {
