@@ -2,3 +2,15 @@
   max-width: 800px;
   margin: 3rem auto;
 }
+
+.main-content {
+  min-height: calc(100vh - 70px);
+}
+
+.main-footer {
+  height: 50px;
+}
+
+section {
+  margin-bottom: 2rem;
+}
