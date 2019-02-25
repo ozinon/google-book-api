@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
-import { Button, Form as SUIForm } from 'semantic-ui-react'
+import { Button, Form as SUIForm, Header } from 'semantic-ui-react'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
@@ -29,7 +29,7 @@ const SearchForm = ({ onSearch }) => {
       >
         {({ isSubmitting }) => (
           <Form className="ui form">
-            <h3>Search for a book</h3>
+            <Header as="h1">Find a book</Header>
             <SUIForm.Field>
               <label htmlFor="queryString">
                 Search
@@ -37,7 +37,7 @@ const SearchForm = ({ onSearch }) => {
                   type="text"
                   name="queryString"
                   id="queryString"
-                  placeholder="Ex. Harry"
+                  placeholder="Ex. Harry Potter"
                 />
               </label>
               <ErrorMessage

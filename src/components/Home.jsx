@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Dimmer, Loader } from 'semantic-ui-react'
+import { Container, Dimmer, Loader } from 'semantic-ui-react'
 import { getBooks } from '../helpers/helpers'
 import BookList from './BookList'
+import NotFound from './NotFound'
 import SearchForm from './SearchForm'
 
 const Home = () => {
@@ -21,10 +22,12 @@ const Home = () => {
     setIsLoading(false)
   }
 
+  if (isError) {
+    return <NotFound />
+  }
   return (
-    <div>
+    <Container>
       <SearchForm onSearch={query => fetchBooks(query)} />
-      {isError && <div>Something went wrong ...</div>}
       {isLoading ? (
         <Dimmer active>
           <Loader content="Loading" />
@@ -32,7 +35,7 @@ const Home = () => {
       ) : (
         <section>{books.length > 0 ? <BookList books={books} /> : ''}</section>
       )}
-    </div>
+    </Container>
   )
 }
 

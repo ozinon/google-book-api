@@ -6,7 +6,7 @@ import NotFound from './NotFound'
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <Router>
         <NotFound default />
         <Home path="/" />
