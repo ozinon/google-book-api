@@ -1,5 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
+import { Button, Form as SUIForm, Header } from 'semantic-ui-react'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
@@ -14,7 +15,7 @@ const initialValues = {
 
 const SearchForm = ({ onSearch }) => {
   return (
-    <div>
+    <section>
       <Formik
         initialValues={initialValues}
         validationSchema={schema}
@@ -27,16 +28,16 @@ const SearchForm = ({ onSearch }) => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <h3>Search for a book</h3>
-            <div>
-              <label htmlFor="queryString" className="label">
+          <Form className="ui form">
+            <Header as="h1">Find a book</Header>
+            <SUIForm.Field>
+              <label htmlFor="queryString">
                 Search
                 <Field
                   type="text"
                   name="queryString"
                   id="queryString"
-                  placeholder="Ex. Harry"
+                  placeholder="Ex. Harry Potter"
                 />
               </label>
               <ErrorMessage
@@ -44,14 +45,14 @@ const SearchForm = ({ onSearch }) => {
                 component="div"
                 className="error-message"
               />
-            </div>
-            <button type="submit" disabled={isSubmitting}>
+            </SUIForm.Field>
+            <Button positive type="submit" disabled={isSubmitting}>
               Search
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>
-    </div>
+    </section>
   )
 }
 
