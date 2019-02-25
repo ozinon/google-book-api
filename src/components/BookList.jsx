@@ -1,14 +1,15 @@
 import React from 'react'
+import { List } from 'semantic-ui-react'
 import BookItem from './BookItem'
 
 const BookList = props => {
   const { books } = props
   return (
-    <ul>
+    <List relaxed>
       {books.map(book => (
         <BookItem key={book.id} book={book} />
       ))}
-    </ul>
+    </List>
   )
 }
 
