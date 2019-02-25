@@ -11,6 +11,7 @@ export const getBooks = async query => {
   const { data } = await axios({
     method: 'get',
     url,
+    timeout: 3000,
   })
 
   return data
@@ -21,6 +22,7 @@ export const getBook = async id => {
   const { data } = await axios({
     method: 'get',
     url,
+    timeout: 3000,
   })
   return data
 }
