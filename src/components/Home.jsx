@@ -4,21 +4,31 @@ import BookList from './BookList'
 import SearchForm from './SearchForm'
 
 const Home = () => {
-  const [data, setData] = useState({ books: [] })
+  const [books, setBooks] = useState({ books: [] })
+  const [isError, setIsError] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const fetchBooks = async query => {
+    setIsError(false)
+    setIsLoading(true)
     try {
       const result = await getBooks(query)
-      setData(result.items)
+      setBooks(result.items)
     } catch (error) {
-      console.error(error)
+      setIsError(true)
     }
+    setIsLoading(false)
   }
 
   return (
     <div>
       <SearchForm onSearch={query => fetchBooks(query)} />
-      {data.length > 0 ? <BookList books={data} /> : ''}
+      {isError && <div>Something went wrong ...</div>}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <section>{books.length > 0 ? <BookList books={books} /> : ''}</section>
+      )}
     </div>
   )
 }
