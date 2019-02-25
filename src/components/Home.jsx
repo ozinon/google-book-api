@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Dimmer, Loader } from 'semantic-ui-react'
 import { getBooks } from '../helpers/helpers'
 import BookList from './BookList'
 import SearchForm from './SearchForm'
@@ -25,7 +26,9 @@ const Home = () => {
       <SearchForm onSearch={query => fetchBooks(query)} />
       {isError && <div>Something went wrong ...</div>}
       {isLoading ? (
-        <div>Loading...</div>
+        <Dimmer active>
+          <Loader content="Loading" />
+        </Dimmer>
       ) : (
         <section>{books.length > 0 ? <BookList books={books} /> : ''}</section>
       )}

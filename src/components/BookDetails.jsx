@@ -1,5 +1,6 @@
 import { Link } from '@reach/router'
 import React, { Fragment, useEffect, useState } from 'react'
+import { Dimmer, Loader } from 'semantic-ui-react'
 import { getBook } from '../helpers/helpers'
 
 const BookDetails = props => {
@@ -26,7 +27,9 @@ const BookDetails = props => {
     <Fragment>
       {isError && <div>Something went wrong ...</div>}
       {isLoading ? (
-        <div>Loading...</div>
+        <Dimmer active>
+          <Loader content="Loading" />
+        </Dimmer>
       ) : (
         <article>
           <h2>{data.title}</h2>
