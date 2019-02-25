@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { getData } from '../helpers/helpers'
-import BookList from './BookList'
+import { Router } from '@reach/router'
+import React from 'react'
+import BookDetails from './BookDetails'
+import Home from './Home'
+import NotFound from './NotFound'
 
 const App = () => {
-  const [data, setData] = useState({ books: [] })
-
-  const fetchBooks = async query => {
-    try {
-      const result = await getData(query)
-      setData(result.items)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-  useEffect(() => {
-    fetchBooks('harry')
-  }, [])
-
-  return <div>{data.length > 0 ? <BookList books={data} /> : ''}</div>
+  return (
+    <div>
+      <Router>
+        <NotFound default />
+        <Home path="/" />
+        <BookDetails path="/book/:details" />
+      </Router>
+    </div>
+  )
 }
 
 export default App
