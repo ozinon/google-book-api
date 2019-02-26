@@ -14,3 +14,13 @@
 section {
   margin-bottom: 2rem;
 }
+
+.paginationButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: red;
+}
