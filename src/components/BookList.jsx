@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimmer, List, Loader } from 'semantic-ui-react'
+import { Dimmer, Header, List, Loader } from 'semantic-ui-react'
 import { getBooks } from '../helpers/helpers'
 import BookItem from './BookItem'
 import NotFound from './NotFound'
@@ -56,6 +56,7 @@ const BookList = props => {
         </Dimmer>
       ) : (
         <List relaxed>
+          <Header as="h2">Results</Header>
           <Pagination
             fetchPrevPage={fetchPrevPage}
             fetchNextPage={fetchNextPage}
