@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimmer, Header, List, Loader } from 'semantic-ui-react'
+import { Dimmer, Header, List, Loader, Placeholder } from 'semantic-ui-react'
 import { getBooks } from '../helpers/helpers'
 import BookItem from './BookItem'
 import NotFound from './NotFound'
@@ -51,7 +51,17 @@ const BookList = props => {
   return (
     <div>
       {isLoading ? (
-        <Dimmer active>
+        <Dimmer active inverted>
+          <Placeholder>
+            <Placeholder.Header image>
+              <Placeholder.Line />
+              <Placeholder.Line />
+            </Placeholder.Header>
+            <Placeholder.Paragraph>
+              <Placeholder.Line length="short" />
+              <Placeholder.Line length="medium" />
+            </Placeholder.Paragraph>
+          </Placeholder>
           <Loader content="Loading" />
         </Dimmer>
       ) : (
