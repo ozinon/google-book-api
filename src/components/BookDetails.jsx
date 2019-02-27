@@ -1,7 +1,6 @@
 import { Link } from '@reach/router'
 import React, { Fragment, useEffect, useState } from 'react'
-import { animated, useSpring } from 'react-spring'
-import { config } from 'rxjs'
+import { animated, config, useSpring } from 'react-spring'
 import {
   Container,
   Dimmer,

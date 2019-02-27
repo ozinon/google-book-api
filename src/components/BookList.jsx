@@ -5,8 +5,7 @@ import BookItem from './BookItem'
 import NotFound from './NotFound'
 import Pagination from './Pagination'
 
-const BookList = props => {
-  const { query } = props
+const BookList = ({ query }) => {
   const [pageIndex, setPageIndex] = useState(0)
   const [queryString, setQueryString] = useState(query)
   const [books, setBooks] = useState({ books: [] })
@@ -45,9 +44,18 @@ const BookList = props => {
     fetchBooks(queryString, pageIndex)
   }, [pageIndex])
 
+  useEffect(() => {
+    setQueryString(query)
+  }, [query])
+
+  useEffect(() => {
+    fetchBooks(queryString, pageIndex)
+  }, [queryString])
+
   if (isError) {
     return <NotFound />
   }
+
   return (
     <div>
       {isLoading ? (
