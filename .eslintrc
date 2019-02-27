@@ -11,6 +11,7 @@
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react/jsx-one-expression-per-line": "off",
+    "react/jsx-filename-extension": "off",
     "prettier/prettier": "error"
   }
 }

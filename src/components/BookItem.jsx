@@ -30,17 +30,26 @@ const BookItem = ({
         onMouseEnter={() => setHovered(true)}
         style={props}
       >
-        <Image floated="left" src={smallThumbnail} alt="title" />
+        <Image
+          floated="left"
+          src={smallThumbnail}
+          alt="title"
+          data-testid="item-image"
+        />
 
         <List.Content>
-          <List.Header>{title}</List.Header>
-          <List.Description>
+          <List.Header data-testid="item-title">{title}</List.Header>
+          <List.Description data-testid="item-description">
             {description ? truncate(description) : ''}
           </List.Description>
-          <p>Published by {publisher}</p>
-          <p>Written by:</p>
+          <p data-testid="item-publisher">Published by {publisher}</p>
+          <p data-testid="item-authors">Written by:</p>
           {authors
-            ? authors.map((author, index) => <p key={index}>{author}</p>)
+            ? authors.map((author, index) => (
+                <p key={index} data-testid="item-author">
+                  {author}
+                </p>
+              ))
             : ''}
           <Link to={`/book/${id}`}>Read more</Link>
         </List.Content>

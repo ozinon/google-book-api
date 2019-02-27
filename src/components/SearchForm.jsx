@@ -6,6 +6,7 @@ import * as yup from 'yup'
 const schema = yup.object().shape({
   queryString: yup
     .string()
+    .trim()
     .required('You need to fill in something to search for.'),
 })
 
