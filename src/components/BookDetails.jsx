@@ -1,4 +1,5 @@
 import { Link } from '@reach/router'
+import PropTypes from 'prop-types'
 import React, { Fragment, useEffect, useState } from 'react'
 import { animated, config, useSpring } from 'react-spring'
 import {
@@ -12,8 +13,7 @@ import {
 import { getBook } from '../helpers/helpers'
 import NotFound from './NotFound'
 
-const BookDetails = props => {
-  const { details } = props
+const BookDetails = ({ details }) => {
   const [data, setData] = useState({ book: {} })
   const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -21,7 +21,6 @@ const BookDetails = props => {
   const aniProps = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    // duration: '2000',
     config: config.default,
   })
 
@@ -93,6 +92,10 @@ const BookDetails = props => {
       )}
     </Fragment>
   )
+}
+
+BookDetails.propTypes = {
+  details: PropTypes.string.isRequired,
 }
 
 export default BookDetails
