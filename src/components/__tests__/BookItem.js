@@ -1,7 +1,9 @@
 import 'jest-dom/extend-expect'
 import React from 'react'
-import { render } from 'react-testing-library'
+import { cleanup, render } from 'react-testing-library'
 import BookItem from '../BookItem'
+
+afterEach(cleanup)
 
 test('Render BookDetails', () => {
   const fakeBook = {
@@ -21,10 +23,19 @@ test('Render BookDetails', () => {
     },
   }
 
-  const { getByTestId } = render(
+  const { getByTestId, getAllByTestId } = render(
     <BookItem book={fakeBook.book} key={fakeBook.id} />,
   )
 
-  expect(getByTestId('item-title')).toHaveTextContent('Fake Book')
-  // Make more expects here
+  expect(getByTestId('item-title')).toHaveTextContent(
+    fakeBook.book.volumeInfo.title,
+  )
+  expect(getByTestId('item-description')).toHaveTextContent(
+    fakeBook.book.volumeInfo.description,
+  )
+  expect(getByTestId('item-publisher')).toHaveTextContent(
+    fakeBook.book.volumeInfo.publisher,
+  )
+  expect(getByTestId('item-authors')).toHaveTextContent('Written by:')
+  expect(getAllByTestId('item-author')).toHaveLength(3)
 })

@@ -41,6 +41,7 @@
     "axios": "^0.18.0",
     "dotenv": "^6.2.0",
     "formik": "^1.5.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-spring": "^8.0.8",
