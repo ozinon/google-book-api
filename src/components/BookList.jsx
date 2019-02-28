@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { Dimmer, Header, List, Loader, Placeholder } from 'semantic-ui-react'
 import { getBooks } from '../helpers/helpers'
@@ -90,6 +91,10 @@ const BookList = ({ query }) => {
       )}
     </div>
   )
+}
+
+BookList.propTypes = {
+  query: PropTypes.string.isRequired,
 }
 
 export default BookList
