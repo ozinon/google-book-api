@@ -1,4 +1,5 @@
 import { Link } from '@reach/router'
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { animated, config, useSpring } from 'react-spring'
 import { Image, List } from 'semantic-ui-react'
@@ -11,7 +12,7 @@ const BookItem = ({
       description,
       publisher,
       authors,
-      imageLinks: { smallThumbnail, thumbnail },
+      imageLinks: { smallThumbnail },
     },
     id,
   },
@@ -56,6 +57,10 @@ const BookItem = ({
       </animated.div>
     </List.Item>
   )
+}
+
+BookItem.propTypes = {
+  book: PropTypes.objectOf(PropTypes.object).isRequired,
 }
 
 export default BookItem
