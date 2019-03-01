@@ -5,7 +5,7 @@ import BookItem from '../BookItem'
 
 afterEach(cleanup)
 
-test('Render BookDetails', () => {
+test('Render BookItem', () => {
   const fakeBook = {
     book: {
       volumeInfo: {
