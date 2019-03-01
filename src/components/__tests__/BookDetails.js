@@ -18,7 +18,7 @@ test('Render BookDetails', () => {
       publishedDate: '2019-01-01',
       categories: ['FakeCategory1 & FakeCategory2'],
       authors: ['Fake author 1', 'Fake author 2', 'Fake author 3'],
-      id: 1,
+      id: 'kjshfioasf',
     },
   }
 

@@ -19,7 +19,7 @@ test('Render BookItem', () => {
         publishedDate: '2019-01-01',
         authors: ['Fake author 1', 'Fake author 2', 'Fake author 3'],
       },
-      id: 1,
+      id: 'lkashfha',
     },
   }
 
