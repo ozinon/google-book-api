@@ -75,8 +75,37 @@ const BookItem = ({
   )
 }
 
+BookItem.defaultProps = {
+  book: {
+    volumeInfo: {
+      title: 'Nothing',
+      description: 'Nothing',
+      publisher: 'Nothing',
+      publishedDate: 'Nothing',
+      categories: ['Nothing'],
+      authors: ['Nothing', 'Nothing'],
+      imageLinks: { smallThumbnail: 'Nothing', thumbnail: 'Nothing' },
+    },
+    id: 'Nothing',
+  },
+}
+
 BookItem.propTypes = {
-  book: PropTypes.objectOf(PropTypes.string).isRequired,
+  book: PropTypes.shape({
+    volumeInfo: PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
+      publisher: PropTypes.string,
+      publishedDate: PropTypes.string,
+      categories: PropTypes.array,
+      authors: PropTypes.array,
+      imageLinks: PropTypes.shape({
+        smallThumbnail: PropTypes.string,
+        thumbnail: PropTypes.string,
+      }),
+    }),
+    id: PropTypes.string,
+  }),
 }
 
 export default BookItem
