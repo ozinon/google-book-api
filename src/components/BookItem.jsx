@@ -2,7 +2,7 @@ import { Link } from '@reach/router'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { animated, config, useSpring } from 'react-spring'
-import { Image, List } from 'semantic-ui-react'
+import { Item } from 'semantic-ui-react'
 import { truncate } from '../helpers/helpers'
 
 const BookItem = ({
@@ -27,33 +27,21 @@ const BookItem = ({
   })
 
   return (
-    <List.Item>
-      <animated.div
-        onMouseLeave={() => setHovered(false)}
-        onMouseEnter={() => setHovered(true)}
-        style={props}
-      >
-        <Image
-          floated="left"
-          src={smallThumbnail}
-          alt="title"
-          data-testid="item-image"
-        />
+    <animated.div
+      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => setHovered(true)}
+      style={props}
+      className="item"
+    >
+      <Item.Image
+        floated="left"
+        src={smallThumbnail}
+        alt={title}
+        data-testid="item-image"
+      />
 
-        <List.Content>
-          <List.Header data-testid="item-title">{title}</List.Header>
-          <List.Description data-testid="item-description">
-            {description ? truncate(description) : ''}
-          </List.Description>
-          <p data-testid="item-publisher">Published by {publisher}</p>
-          <p data-testid="item-authors">Written by:</p>
-          {authors
-            ? authors.map((author, index) => (
-                <p key={index} data-testid="item-author">
-                  {author}
-                </p>
-              ))
-            : ''}
+      <Item.Content>
+        <Item.Header as="h3" data-testid="item-title">
           <Link
             to={`/book/${id}`}
             state={{
@@ -67,11 +55,40 @@ const BookItem = ({
               id,
             }}
           >
-            Read more
+            {title}
           </Link>
-        </List.Content>
-      </animated.div>
-    </List.Item>
+        </Item.Header>
+        <Item.Description data-testid="item-description">
+          {description ? truncate(description) : ''}
+        </Item.Description>
+        <Item.Meta data-testid="item-publisher">
+          Published by {publisher}
+        </Item.Meta>
+        <Item.Meta data-testid="item-authors">Written by:</Item.Meta>
+        {authors
+          ? authors.map((author, index) => (
+              <Item.Meta key={index} data-testid="item-author">
+                {author}
+              </Item.Meta>
+            ))
+          : ''}
+        <Link
+          to={`/book/${id}`}
+          state={{
+            title,
+            description,
+            publisher,
+            publishedDate,
+            categories,
+            authors,
+            thumbnail,
+            id,
+          }}
+        >
+          Read more
+        </Link>
+      </Item.Content>
+    </animated.div>
   )
 }
 

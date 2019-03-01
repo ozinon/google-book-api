@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
-import { Dimmer, Header, List, Loader, Placeholder } from 'semantic-ui-react'
+import React, { Fragment, useEffect, useState } from 'react'
+import {
+  Container,
+  Dimmer,
+  Header,
+  Item,
+  Loader,
+  Placeholder,
+} from 'semantic-ui-react'
 import { getBooks } from '../helpers/helpers'
 import BookItem from './BookItem'
 import NotFound from './NotFound'
@@ -58,7 +65,7 @@ const BookList = ({ query }) => {
   }
 
   return (
-    <div>
+    <Container>
       {isLoading ? (
         <Dimmer active inverted>
           <Placeholder>
@@ -74,22 +81,24 @@ const BookList = ({ query }) => {
           <Loader content="Loading" />
         </Dimmer>
       ) : (
-        <List relaxed>
+        <Fragment>
           <Header as="h2">Results</Header>
           <Pagination
             fetchPrevPage={fetchPrevPage}
             fetchNextPage={fetchNextPage}
           />
-          {books.length > 0
-            ? books.map(book => <BookItem key={book.id} book={book} />)
-            : ''}
+          <Item.Group divided>
+            {books.length > 0
+              ? books.map(book => <BookItem key={book.id} book={book} />)
+              : ''}
+          </Item.Group>
           <Pagination
             fetchPrevPage={fetchPrevPage}
             fetchNextPage={fetchNextPage}
           />
-        </List>
+        </Fragment>
       )}
-    </div>
+    </Container>
   )
 }
 

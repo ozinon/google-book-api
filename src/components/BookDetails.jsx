@@ -1,8 +1,8 @@
 import { Link } from '@reach/router'
 import PropTypes from 'prop-types'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { animated, config, useSpring } from 'react-spring'
-import { Container, Header, Image } from 'semantic-ui-react'
+import { Container, Item } from 'semantic-ui-react'
 import NotFound from './NotFound'
 
 const BookDetails = ({
@@ -31,37 +31,43 @@ const BookDetails = ({
   }
 
   return (
-    <Fragment>
-      <Container data-testid="details">
-        <animated.div style={aniProps}>
-          {thumbnail ? (
-            <Image floated="left" src={thumbnail} alt={title} />
-          ) : (
-            ''
-          )}
-          <Header as="h2" data-testid="detail-title">
-            {title}
-          </Header>
-          <p data-testid="detail-description">
-            {description ? description.replace(/(<([^>]+)>)/gi, '') : ''}
-          </p>
-          <p data-testid="detail-categories">Categories: {cats}</p>
-          <p data-testid="detail-publish">
-            Published {publishedDate} by {publisher}
-          </p>
-          {authors
-            ? authors.map(author => (
-                <p key={author} data-testid="detail-author">
-                  <strong>{author}</strong>
-                </p>
-              ))
-            : ''}
-          <Link to="/" data-testid="detail-link">
-            Back to search
-          </Link>
-        </animated.div>
-      </Container>
-    </Fragment>
+    <Container data-testid="details">
+      <animated.div style={aniProps}>
+        <Item.Group>
+          <Item>
+            {thumbnail ? (
+              <Item.Image floated="left" src={thumbnail} alt={title} />
+            ) : (
+              ''
+            )}
+            <Item.Content>
+              <Item.Header as="a" data-testid="detail-title">
+                {title}
+              </Item.Header>
+              <Item.Description data-testid="detail-description">
+                {description ? description.replace(/(<([^>]+)>)/gi, '') : ''}
+              </Item.Description>
+              <Item.Meta data-testid="detail-categories">
+                Categories: {cats}
+              </Item.Meta>
+              <Item.Meta data-testid="detail-publish">
+                Published {publishedDate} by {publisher}
+              </Item.Meta>
+              {authors
+                ? authors.map(author => (
+                    <Item.Description key={author} data-testid="detail-author">
+                      <strong>{author}</strong>
+                    </Item.Description>
+                  ))
+                : ''}
+              <Link to="/" data-testid="detail-link">
+                Back to search
+              </Link>
+            </Item.Content>
+          </Item>
+        </Item.Group>
+      </animated.div>
+    </Container>
   )
 }
 
