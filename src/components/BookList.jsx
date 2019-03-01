@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { Dimmer, Header, List, Loader, Placeholder } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
+import React, { Fragment, useEffect, useState } from 'react'
+import {
+  Container,
+  Dimmer,
+  Header,
+  Item,
+  Loader,
+  Placeholder,
+} from 'semantic-ui-react'
 import { getBooks } from '../helpers/helpers'
 import BookItem from './BookItem'
 import NotFound from './NotFound'
 import Pagination from './Pagination'
 
-const BookList = props => {
-  const { query } = props
+const BookList = ({ query }) => {
   const [pageIndex, setPageIndex] = useState(0)
   const [queryString, setQueryString] = useState(query)
   const [books, setBooks] = useState({ books: [] })
@@ -45,11 +52,20 @@ const BookList = props => {
     fetchBooks(queryString, pageIndex)
   }, [pageIndex])
 
+  useEffect(() => {
+    setQueryString(query)
+  }, [query])
+
+  useEffect(() => {
+    fetchBooks(queryString, pageIndex)
+  }, [queryString])
+
   if (isError) {
     return <NotFound />
   }
+
   return (
-    <div>
+    <Container>
       {isLoading ? (
         <Dimmer active inverted>
           <Placeholder>
@@ -65,23 +81,29 @@ const BookList = props => {
           <Loader content="Loading" />
         </Dimmer>
       ) : (
-        <List relaxed>
+        <Fragment>
           <Header as="h2">Results</Header>
           <Pagination
             fetchPrevPage={fetchPrevPage}
             fetchNextPage={fetchNextPage}
           />
-          {books.length > 0
-            ? books.map(book => <BookItem key={book.id} book={book} />)
-            : ''}
+          <Item.Group divided>
+            {books.length > 0
+              ? books.map(book => <BookItem key={book.id} book={book} />)
+              : ''}
+          </Item.Group>
           <Pagination
             fetchPrevPage={fetchPrevPage}
             fetchNextPage={fetchNextPage}
           />
-        </List>
+        </Fragment>
       )}
-    </div>
+    </Container>
   )
+}
+
+BookList.propTypes = {
+  query: PropTypes.string.isRequired,
 }
 
 export default BookList
