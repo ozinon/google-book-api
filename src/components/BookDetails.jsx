@@ -1,101 +1,96 @@
 import { Link } from '@reach/router'
 import PropTypes from 'prop-types'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import { animated, config, useSpring } from 'react-spring'
-import {
-  Container,
-  Dimmer,
-  Header,
-  Image,
-  Loader,
-  Placeholder,
-} from 'semantic-ui-react'
-import { getBook } from '../helpers/helpers'
+import { Container, Header, Image } from 'semantic-ui-react'
 import NotFound from './NotFound'
 
-const BookDetails = ({ details }) => {
-  const [data, setData] = useState({ book: {} })
-  const [isError, setIsError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-
+const BookDetails = ({
+  location: {
+    state: {
+      title,
+      description,
+      publisher,
+      publishedDate,
+      categories,
+      authors,
+      thumbnail,
+    },
+  },
+}) => {
   const aniProps = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
     config: config.default,
   })
 
-  const fetchBook = async id => {
-    setIsError(false)
-    setIsLoading(true)
-    try {
-      const result = await getBook(id)
-      setData(result.volumeInfo)
-    } catch (error) {
-      setIsError(true)
-    }
-    setIsLoading(false)
-  }
-  useEffect(() => {
-    fetchBook(details)
-  }, [])
+  const cats = categories.join('')
 
-  if (isError) {
+  if (title === 'Nothing') {
     return <NotFound />
   }
+
   return (
     <Fragment>
-      {isLoading ? (
-        <Dimmer active inverted>
-          <Placeholder>
-            <Placeholder.Header image>
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Header>
-            <Placeholder.Paragraph>
-              <Placeholder.Line length="short" />
-              <Placeholder.Line length="medium" />
-            </Placeholder.Paragraph>
-          </Placeholder>
-          <Loader content="Loading" />
-        </Dimmer>
-      ) : (
-        <Container>
-          <animated.div style={aniProps}>
-            {data.imageLinks ? (
-              <Image
-                floated="left"
-                src={data.imageLinks.small}
-                alt={data.title}
-              />
-            ) : (
-              ''
-            )}
-            <Header as="h2">{data.title}</Header>
-            <p>
-              {data.description
-                ? data.description.replace(/(<([^>]+)>)/gi, '')
-                : ''}
-            </p>
-            <p>
-              Published {data.publishedDate} by {data.publisher}
-            </p>
-            {data.authors
-              ? data.authors.map((author, index) => (
-                  <p key={index}>
-                    <strong>{author}</strong>
-                  </p>
-                ))
-              : ''}
-            <Link to="/">Back to search</Link>
-          </animated.div>
-        </Container>
-      )}
+      <Container data-testid="details">
+        <animated.div style={aniProps}>
+          {thumbnail ? (
+            <Image floated="left" src={thumbnail} alt={title} />
+          ) : (
+            ''
+          )}
+          <Header as="h2" data-testid="detail-title">
+            {title}
+          </Header>
+          <p data-testid="detail-description">
+            {description ? description.replace(/(<([^>]+)>)/gi, '') : ''}
+          </p>
+          <p data-testid="detail-categories">Categories: {cats}</p>
+          <p data-testid="detail-publish">
+            Published {publishedDate} by {publisher}
+          </p>
+          {authors
+            ? authors.map(author => (
+                <p key={author} data-testid="detail-author">
+                  <strong>{author}</strong>
+                </p>
+              ))
+            : ''}
+          <Link to="/" data-testid="detail-link">
+            Back to search
+          </Link>
+        </animated.div>
+      </Container>
     </Fragment>
   )
 }
 
+BookDetails.defaultProps = {
+  location: {
+    state: {
+      title: 'Nothing',
+      description: 'Nothing',
+      publihser: 'Nothing',
+      publishedDate: 'Nothing',
+      thumbnail: 'Nothing',
+      categories: [],
+      authors: [],
+    },
+  },
+}
+
 BookDetails.propTypes = {
-  details: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
+      categories: PropTypes.array,
+      publisher: PropTypes.string,
+      publishedDate: PropTypes.string,
+      authors: PropTypes.array,
+      thumbnail: PropTypes.string,
+    }),
+  }),
 }
 
 export default BookDetails

@@ -11,8 +11,10 @@ const BookItem = ({
       title,
       description,
       publisher,
+      publishedDate,
+      categories,
       authors,
-      imageLinks: { smallThumbnail },
+      imageLinks: { smallThumbnail, thumbnail },
     },
     id,
   },
@@ -52,7 +54,21 @@ const BookItem = ({
                 </p>
               ))
             : ''}
-          <Link to={`/book/${id}`}>Read more</Link>
+          <Link
+            to={`/book/${id}`}
+            state={{
+              title,
+              description,
+              publisher,
+              publishedDate,
+              categories,
+              authors,
+              thumbnail,
+              id,
+            }}
+          >
+            Read more
+          </Link>
         </List.Content>
       </animated.div>
     </List.Item>
@@ -60,7 +76,7 @@ const BookItem = ({
 }
 
 BookItem.propTypes = {
-  book: PropTypes.objectOf(PropTypes.object).isRequired,
+  book: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
 export default BookItem
