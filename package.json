@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel index.html",
     "dev": "",
-    "build": "",
+    "build": "parcel build index.html",
     "watch": "",
     "lint-staged": "lint-staged",
     "format": "prettier --write \"**/*.+(js|md|ts|css|sass|less|graphql|yml|yaml|scss|json|vue)\"",
