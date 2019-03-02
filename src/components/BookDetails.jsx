@@ -60,11 +60,11 @@ const BookDetails = ({
                     </Item.Description>
                   ))
                 : ''}
-              <Link to="/" data-testid="detail-link">
-                Back to search
-              </Link>
             </Item.Content>
           </Item>
+          <Link to="/" data-testid="detail-link">
+            Back to search
+          </Link>
         </Item.Group>
       </animated.div>
     </Container>

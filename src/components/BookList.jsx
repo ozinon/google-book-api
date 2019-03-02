@@ -1,8 +1,10 @@
+import { Link } from '@reach/router'
 import PropTypes from 'prop-types'
 import React, { Fragment, useEffect, useState } from 'react'
 import {
   Container,
   Dimmer,
+  Divider,
   Header,
   Item,
   Loader,
@@ -13,7 +15,11 @@ import BookItem from './BookItem'
 import NotFound from './NotFound'
 import Pagination from './Pagination'
 
-const BookList = ({ query }) => {
+const BookList = ({
+  location: {
+    state: { query },
+  },
+}) => {
   const [pageIndex, setPageIndex] = useState(0)
   const [queryString, setQueryString] = useState(query)
   const [books, setBooks] = useState({ books: [] })
@@ -83,6 +89,8 @@ const BookList = ({ query }) => {
       ) : (
         <Fragment>
           <Header as="h2">Results</Header>
+          <Link to="/">Make a new search</Link>
+          <Divider />
           <Pagination
             fetchPrevPage={fetchPrevPage}
             fetchNextPage={fetchNextPage}
@@ -103,7 +111,11 @@ const BookList = ({ query }) => {
 }
 
 BookList.propTypes = {
-  query: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      query: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
 export default BookList

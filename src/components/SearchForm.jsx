@@ -1,5 +1,5 @@
+import { navigate } from '@reach/router'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { Button, Form as SUIForm, Header } from 'semantic-ui-react'
 import * as yup from 'yup'
@@ -15,7 +15,7 @@ const initialValues = {
   queryString: '',
 }
 
-const SearchForm = ({ onSearch }) => {
+const SearchForm = () => {
   return (
     <section>
       <Formik
@@ -23,8 +23,8 @@ const SearchForm = ({ onSearch }) => {
         validationSchema={schema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(false)
-          onSearch(values.queryString)
           resetForm(initialValues)
+          navigate('/books/', { state: { query: values.queryString } })
         }}
       >
         {({ isSubmitting }) => (
@@ -64,10 +64,6 @@ const SearchForm = ({ onSearch }) => {
       </Formik>
     </section>
   )
-}
-
-SearchForm.propTypes = {
-  onSearch: PropTypes.func.isRequired,
 }
 
 export default SearchForm
