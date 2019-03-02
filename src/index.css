@@ -4,11 +4,11 @@
 }
 
 .main-content {
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 150px);
 }
 
 .main-footer {
-  height: 50px;
+  padding: 3em 0em;
 }
 
 section {

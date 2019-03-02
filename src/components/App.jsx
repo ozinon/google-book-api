@@ -1,6 +1,7 @@
 import { Router } from '@reach/router'
 import React from 'react'
 import BookDetails from './BookDetails'
+import BookList from './BookList'
 import Footer from './Footer'
 import Home from './Home'
 import NotFound from './NotFound'
@@ -13,6 +14,7 @@ const App = () => {
           <NotFound default />
           <Home path="/" />
           <BookDetails path="/book/:details" />
+          <BookList path="/books/" />
         </Router>
       </div>
       <Footer />
