@@ -110,12 +110,20 @@ const BookList = ({
   )
 }
 
+BookList.defaultProps = {
+  location: {
+    state: {
+      query: '',
+    },
+  },
+}
+
 BookList.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       query: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
 }
 
 export default BookList
