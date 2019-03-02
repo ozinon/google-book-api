@@ -1,10 +1,13 @@
+import { navigate } from '@reach/router'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
+import { Button, Form as SUIForm, Header } from 'semantic-ui-react'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
   queryString: yup
     .string()
+    .trim()
     .required('You need to fill in something to search for.'),
 })
 
@@ -12,46 +15,54 @@ const initialValues = {
   queryString: '',
 }
 
-const SearchForm = ({ onSearch }) => {
+const SearchForm = () => {
   return (
-    <div>
+    <section>
       <Formik
         initialValues={initialValues}
         validationSchema={schema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          onSearch(values.queryString)
+          setSubmitting(false)
           resetForm(initialValues)
-          setTimeout(() => {
-            setSubmitting(false)
-          }, 400)
+          navigate('/books/', { state: { query: values.queryString } })
         }}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <h3>Search for a book</h3>
-            <div>
-              <label htmlFor="queryString" className="label">
+          <Form className="ui form" data-testid="form">
+            <Header as="h1" data-testid="form-header">
+              Find a book
+            </Header>
+            <SUIForm.Field>
+              <label htmlFor="queryString" data-testid="form-label">
                 Search
                 <Field
                   type="text"
                   name="queryString"
                   id="queryString"
-                  placeholder="Ex. Harry"
+                  placeholder="Ex. Harry Potter"
+                  data-testid="form-search"
                 />
               </label>
               <ErrorMessage
                 name="queryString"
                 component="div"
                 className="error-message"
+                data-testid="form-error"
               />
-            </div>
-            <button type="submit" disabled={isSubmitting}>
+            </SUIForm.Field>
+
+            <Button
+              positive
+              type="submit"
+              data-testid="form-button"
+              disabled={isSubmitting}
+            >
               Search
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>
-    </div>
+    </section>
   )
 }
 

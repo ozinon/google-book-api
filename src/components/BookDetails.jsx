@@ -1,58 +1,102 @@
 import { Link } from '@reach/router'
-import React, { Fragment, useEffect, useState } from 'react'
-import { getBook } from '../helpers/helpers'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { animated, config, useSpring } from 'react-spring'
+import { Container, Item } from 'semantic-ui-react'
+import NotFound from './NotFound'
 
-const BookDetails = props => {
-  const { details } = props
-  const [data, setData] = useState({ book: {} })
-  const [isError, setIsError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+const BookDetails = ({
+  location: {
+    state: {
+      title,
+      description,
+      publisher,
+      publishedDate,
+      categories,
+      authors,
+      thumbnail,
+    },
+  },
+}) => {
+  const aniProps = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: config.default,
+  })
 
-  const fetchBook = async id => {
-    setIsError(false)
-    setIsLoading(true)
-    try {
-      const result = await getBook(id)
-      setData(result.volumeInfo)
-    } catch (error) {
-      setIsError(true)
-    }
-    setIsLoading(false)
+  const cats = categories.join('')
+
+  if (title === 'Nothing') {
+    return <NotFound />
   }
-  useEffect(() => {
-    fetchBook(details)
-  }, [])
+
   return (
-    <Fragment>
-      {isError && <div>Something went wrong ...</div>}
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <article>
-          <h2>{data.title}</h2>
-          <p>
-            {data.description
-              ? data.description.replace(/(<([^>]+)>)/gi, '')
-              : ''}
-          </p>
-          <p>{data.publisher}</p>
-          <p>{data.publishedDate}</p>
-          {data.authors
-            ? data.authors.map((author, index) => <p key={index}>{author}</p>)
-            : ''}
-          {data.imageLinks ? (
-            <Fragment>
-              <img src={data.imageLinks.small} alt={data.title} />
-              <img src={data.imageLinks.medium} alt={data.title} />
-            </Fragment>
-          ) : (
-            ''
-          )}
-          <Link to="/">Back to search</Link>
-        </article>
-      )}
-    </Fragment>
+    <Container data-testid="details">
+      <animated.div style={aniProps}>
+        <Item.Group>
+          <Item>
+            {thumbnail ? (
+              <Item.Image floated="left" src={thumbnail} alt={title} />
+            ) : (
+              ''
+            )}
+            <Item.Content>
+              <Item.Header as="a" data-testid="detail-title">
+                {title}
+              </Item.Header>
+              <Item.Description data-testid="detail-description">
+                {description ? description.replace(/(<([^>]+)>)/gi, '') : ''}
+              </Item.Description>
+              <Item.Meta data-testid="detail-categories">
+                Categories: {cats}
+              </Item.Meta>
+              <Item.Meta data-testid="detail-publish">
+                Published {publishedDate} by {publisher}
+              </Item.Meta>
+              {authors
+                ? authors.map(author => (
+                    <Item.Description key={author} data-testid="detail-author">
+                      <strong>{author}</strong>
+                    </Item.Description>
+                  ))
+                : ''}
+            </Item.Content>
+          </Item>
+          <Link to="/" data-testid="detail-link">
+            Back to search
+          </Link>
+        </Item.Group>
+      </animated.div>
+    </Container>
   )
+}
+
+BookDetails.defaultProps = {
+  location: {
+    state: {
+      title: 'Nothing',
+      description: 'Nothing',
+      publihser: 'Nothing',
+      publishedDate: 'Nothing',
+      thumbnail: 'Nothing',
+      categories: [],
+      authors: [],
+    },
+  },
+}
+
+BookDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
+      categories: PropTypes.array,
+      publisher: PropTypes.string,
+      publishedDate: PropTypes.string,
+      authors: PropTypes.array,
+      thumbnail: PropTypes.string,
+    }),
+  }),
 }
 
 export default BookDetails

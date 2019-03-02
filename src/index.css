@@ -1,0 +1,26 @@
+.App {
+  max-width: 800px;
+  margin: 3rem auto;
+}
+
+.main-content {
+  min-height: calc(100vh - 150px);
+}
+
+.main-footer {
+  padding: 3em 0em;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+.paginationButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: red;
+}
