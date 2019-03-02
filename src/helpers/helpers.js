@@ -3,15 +3,15 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-// const apiKey = process.env.GOOGLE_BOOKS_API_KEY
+const apiKey = process.env.GOOGLE_BOOKS_API_KEY
 const baseURL = 'https://www.googleapis.com/books/v1/volumes'
 const maxResults = 5
 
 export const getBooks = async (query, pageIndex) => {
   const paginationIndex = pageIndex * maxResults
-  // const url = `${baseURL}?q=${query}&startIndex=${paginationIndex}&maxResults=${maxResults}&key=${apiKey}`
   const cleanedQuery = encodeURIComponent(query.trim())
-  const url = `${baseURL}?q=${cleanedQuery}&startIndex=${paginationIndex}&maxResults=${maxResults}`
+  const url = `${baseURL}?q=${cleanedQuery}&startIndex=${paginationIndex}&maxResults=${maxResults}&key=${apiKey}`
+  // const url = `${baseURL}?q=${cleanedQuery}&startIndex=${paginationIndex}&maxResults=${maxResults}`
   const { data } = await axios({
     method: 'get',
     url,
