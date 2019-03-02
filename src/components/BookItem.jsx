@@ -23,7 +23,7 @@ const BookItem = ({
   const props = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1, transform: `scale(${hovered ? 1.1 : 1})` },
-    config: config.molasses,
+    config: config.default,
   })
 
   return (
