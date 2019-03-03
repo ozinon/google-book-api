@@ -10,7 +10,6 @@ test('Render Search Form', async () => {
 
   const { getByTestId } = render(<SearchForm />)
 
-  expect(getByTestId('form')).toContainElement(getByTestId('form-header'))
   expect(getByTestId('form')).toContainElement(getByTestId('form-label'))
   expect(getByTestId('form')).toContainElement(getByTestId('form-search'))
   expect(getByTestId('form')).toContainElement(getByTestId('form-button'))
