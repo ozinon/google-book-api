@@ -2,7 +2,6 @@ import { Link } from '@reach/router'
 import PropTypes from 'prop-types'
 import React, { Fragment, useEffect, useState } from 'react'
 import {
-  Container,
   Dimmer,
   Divider,
   Header,
@@ -71,7 +70,7 @@ const BookList = ({
   }
 
   return (
-    <Container>
+    <Fragment>
       {isLoading ? (
         <Dimmer active inverted>
           <Placeholder>
@@ -106,7 +105,7 @@ const BookList = ({
           />
         </Fragment>
       )}
-    </Container>
+    </Fragment>
   )
 }
 
