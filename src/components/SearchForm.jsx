@@ -1,7 +1,7 @@
 import { navigate } from '@reach/router'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
-import { Button, Form as SUIForm, Header } from 'semantic-ui-react'
+import { Button, Form as SUIForm } from 'semantic-ui-react'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
@@ -29,12 +29,9 @@ const SearchForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="ui form" data-testid="form">
-            <Header as="h1" data-testid="form-header">
-              Find a book
-            </Header>
             <SUIForm.Field>
               <label htmlFor="queryString" data-testid="form-label">
-                Search
+                Search for a book
                 <Field
                   type="text"
                   name="queryString"

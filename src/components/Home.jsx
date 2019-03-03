@@ -1,12 +1,11 @@
-import React from 'react'
-import { Container } from 'semantic-ui-react'
+import React, { Fragment } from 'react'
 import SearchForm from './SearchForm'
 
 const Home = () => {
   return (
-    <Container>
+    <Fragment>
       <SearchForm />
-    </Container>
+    </Fragment>
   )
 }
 
