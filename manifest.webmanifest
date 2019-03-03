@@ -1,0 +1,15 @@
+{
+  "short_name": "Books",
+  "name": "Friendly Book Finder",
+  "icons": [
+    {
+      "src": "/images/search-book.png",
+      "type": "image/png",
+      "sizes": "200x200"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#BEE3CA",
+  "display": "standalone",
+  "theme_color": "#BEE3CA"
+}
