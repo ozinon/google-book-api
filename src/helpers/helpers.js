@@ -11,7 +11,6 @@ export const getBooks = async (query, pageIndex) => {
   const paginationIndex = pageIndex * maxResults
   const cleanedQuery = encodeURIComponent(query.trim())
   const url = `${baseURL}?q=${cleanedQuery}&startIndex=${paginationIndex}&maxResults=${maxResults}&key=${apiKey}`
-  // const url = `${baseURL}?q=${cleanedQuery}&startIndex=${paginationIndex}&maxResults=${maxResults}`
   const { data } = await axios({
     method: 'get',
     url,
